@@ -4,7 +4,6 @@ import by.unie.chat.Chat;
 import by.unie.chat.Message;
 import by.unie.chat.User;
 import by.unie.dto.MessageDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -46,9 +45,8 @@ public class ChatServiceImp implements ChatService {
         User user = (User) entityManager.createNativeQuery("select * from users where users.name = :name", User.class).setParameter("name",name).getSingleResult();
         Message message = new Message(user, text, new Date());
         Chat chat = entityManager.find(Chat.class, id);
-        chat.getMessage().add(message);
         entityManager.persist(message);
-        entityManager.merge(chat);
+        chat.getMessage().add(message);
     }
 
     @Transactional
