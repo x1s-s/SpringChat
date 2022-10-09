@@ -28,6 +28,10 @@ public class Chat {
         this.message = new ArrayList<>();
     }
 
+    public int getId() {
+        return Id;
+    }
+
     public List<User> getUser() {
         return user;
     }
