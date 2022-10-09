@@ -11,7 +11,7 @@ public interface ChatService {
     Chat getChat(int id);
     List<User> getUsers(int id);
     List<MessageDto> getMessages(int id);
-    void addChat(Chat chat);
+    Integer addChat(Chat chat);
     void addMessage(String message,int id, String name);
     void addUser(User user);
 

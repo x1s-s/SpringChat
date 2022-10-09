@@ -45,10 +45,9 @@ public class ChatController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity addChat(@RequestBody Chat chat) {
+    public ResponseEntity<Integer> addChat() {
         log.info("add chat");
-        chatService.addChat(chat);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(chatService.addChat(new Chat()));
     }
 
     @PostMapping("{id}/addtochat/{name}")
