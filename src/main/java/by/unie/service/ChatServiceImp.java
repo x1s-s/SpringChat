@@ -43,12 +43,14 @@ public class ChatServiceImp implements ChatService {
     @Transactional
     @Override
     public void addMessage(String text, int id, String name) {
-        User user = (User) entityManager.createNativeQuery("select * from users where users.name = :name", User.class).setParameter("name",name).getSingleResult();
+        User user = entityManager
+                .createQuery("select u from User u where u.name = :name", User.class)
+                .setParameter("name",name)
+                .getSingleResult();
         Chat chat = entityManager.find(Chat.class, id);
         if(user != null && chat != null && chat.getUser().contains(user)){
-            Message message = new Message(user, text, new Date());
-            entityManager.persist(message);
-            chat.getMessage().add(message);
+            chat.getMessage().add(new Message(user, text, new Date()));
+            entityManager.merge(chat);
         } else {
             throw new RuntimeException("User not found");
         }
@@ -63,7 +65,10 @@ public class ChatServiceImp implements ChatService {
     @Transactional
     @Override
     public boolean addUserToChat(int id, String name) {
-        User user = (User) entityManager.createNativeQuery("select * from users where users.name = :name", User.class).setParameter("name",name).getSingleResult();
+        User user = entityManager
+                .createQuery("select u from User u where u.name = :name", User.class)
+                .setParameter("name",name)
+                .getSingleResult();
         Chat chat = entityManager.find(Chat.class, id);
         if (user != null && chat != null) {
             chat.getUser().add(user);
