@@ -13,7 +13,7 @@ public class Chat {
     @ManyToMany
     @JoinColumn(name = "chat_id")
     private List<User> user;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "chat_id")
     private List<Message> message;
 
