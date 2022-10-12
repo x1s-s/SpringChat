@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private int id;
+    private long id;
     @Column(name = "name")
     private String name;
 
@@ -26,7 +26,7 @@ public class User {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
