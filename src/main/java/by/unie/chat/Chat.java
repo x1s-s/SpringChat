@@ -9,7 +9,7 @@ import java.util.List;
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private long Id;
     @ManyToMany
     @JoinColumn(name = "chat_id")
     private List<User> user;
@@ -22,11 +22,11 @@ public class Chat {
         this.message = new ArrayList<>();
     }
 
-    public int getId() {
+    public long getId() {
         return Id;
     }
 
-    public List<User> getUser() {
+    public List<User> getUsers() {
         return user;
     }
 
@@ -34,7 +34,7 @@ public class Chat {
         this.user = user;
     }
 
-    public List<Message> getMessage() {
+    public List<Message> getMessages() {
         return message;
     }
 
