@@ -14,7 +14,7 @@ import java.util.Date;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     @OneToOne
     @JoinColumn(name = "author_id")
     private User author;
