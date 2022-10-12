@@ -45,7 +45,7 @@ public class ChatController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Integer> addChat() {
+    public ResponseEntity<Long> addChat() {
         log.info("add chat");
         return ResponseEntity.ok(chatService.addChat(new Chat()));
     }
@@ -53,10 +53,7 @@ public class ChatController {
     @PostMapping("{id}/addtochat/{name}")
     public ResponseEntity addUserToChat(@PathVariable int id, @PathVariable String name) {
         log.info("add user " + name + " to chat " + id);
-        if(chatService.addUserToChat(id, name)){
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        chatService.addUserToChat(id, name);
+        return ResponseEntity.ok().build();
     }
 }

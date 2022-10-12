@@ -1,82 +1,59 @@
 package by.unie.service;
 
 import by.unie.chat.Chat;
-import by.unie.chat.Message;
 import by.unie.chat.User;
+import by.unie.dao.ChatDAO;
 import by.unie.dto.MessageDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ChatServiceImp implements ChatService {
-    @PersistenceContext
-    EntityManager entityManager;
+    @Autowired
+    ChatDAO chatDAO;
 
     @Override
-    public Chat getChat(int id) {
-        return entityManager.find(Chat.class, id);
+    public Chat getChat(long id) {
+        return chatDAO.getChat(id);
     }
 
     @Override
-    public List<User> getUsers(int id) {
-        return entityManager.find(Chat.class, id).getUser();
+    public List<User> getUsers(long id) {
+        return chatDAO.getUsers(id);
     }
 
     @Override
-    public List<MessageDto> getMessages(int id) {
-        return entityManager.find(Chat.class, id).getMessage().stream().map(MessageDto::from).collect(Collectors.toList());
+    public List<MessageDto> getMessages(long id) {
+        return chatDAO.getMessages(id);
     }
 
     @Transactional
     @Override
-    public Integer addChat(Chat chat) {
-        entityManager.persist(chat);
+    public Long addChat(Chat chat) {
+        chatDAO.addChat(chat);
         return chat.getId();
     }
 
     @Transactional
     @Override
-    public void addMessage(String text, int id, String name) {
-        User user = entityManager
-                .createQuery("select u from User u where u.name = :name", User.class)
-                .setParameter("name",name)
-                .getSingleResult();
-        Chat chat = entityManager.find(Chat.class, id);
-        if(user != null && chat != null && chat.getUser().contains(user)){
-            chat.getMessage().add(new Message(user, text, new Date()));
-            entityManager.merge(chat);
-        } else {
-            throw new RuntimeException("User not found");
-        }
+    public void addMessage(String text, long id, String name) {
+        chatDAO.addMessage(text, id, name);
     }
 
     @Transactional
     @Override
     public void addUser(User user) {
-        entityManager.persist(user);
+        chatDAO.addUser(user);
     }
 
     @Transactional
     @Override
-    public boolean addUserToChat(int id, String name) {
-        User user = entityManager
-                .createQuery("select u from User u where u.name = :name", User.class)
-                .setParameter("name",name)
-                .getSingleResult();
-        Chat chat = entityManager.find(Chat.class, id);
-        if (user != null && chat != null) {
-            chat.getUser().add(user);
-            entityManager.merge(chat);
-            return true;
-        } else {
-            return false;
-        }
+    public void addUserToChat(long id, String name) {
+        chatDAO.addUserToChat(id, name);
     }
 }
 
