@@ -6,7 +6,7 @@ import by.unie.chat.User;
 import by.unie.dao.repositories.ChatRepository;
 import by.unie.dao.repositories.MessageRepository;
 import by.unie.dao.repositories.UserRepository;
-import by.unie.dto.MessageDto;
+import by.unie.dto.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,9 +34,9 @@ public class ChatDAOIml implements ChatDAO {
     }
 
     @Override
-    public List<MessageDto> getMessages(long id) {
+    public List<MessageDTO> getMessages(long id) {
         return chatRepository.findById(id).get().getMessages().
-                stream().map(MessageDto::from).collect(Collectors.toList());
+                stream().map(MessageDTO::from).collect(Collectors.toList());
     }
 
     @Override

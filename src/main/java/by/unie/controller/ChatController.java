@@ -1,9 +1,8 @@
 package by.unie.controller;
 
 import by.unie.chat.Chat;
-import by.unie.chat.Message;
 import by.unie.chat.User;
-import by.unie.dto.MessageDto;
+import by.unie.dto.MessageDTO;
 import by.unie.service.ChatService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class ChatController {
     }
 
     @GetMapping("/message/{id}")
-    public ResponseEntity<List<MessageDto>> getMessageFromChat(@PathVariable int id) {
+    public ResponseEntity<List<MessageDTO>> getMessageFromChat(@PathVariable int id) {
         return ResponseEntity.ok(chatService.getMessages(id));
     }
 

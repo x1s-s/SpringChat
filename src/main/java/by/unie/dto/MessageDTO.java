@@ -6,22 +6,22 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 @Data
-@Component("messageDto")
-public class MessageDto {
+@Component("messageDTO")
+public class MessageDTO {
     private String text;
     private String name;
     private Date date;
 
-    public MessageDto() {
+    public MessageDTO() {
     }
 
-    public MessageDto(String text, String name, Date date) {
+    public MessageDTO(String text, String name, Date date) {
         this.text = text;
         this.name = name;
         this.date = date;
     }
 
-    public static MessageDto from(Message message){
-        return new MessageDto(message.getText(),message.getAuthor().getName(),message.getDate());
+    public static MessageDTO from(Message message){
+        return new MessageDTO(message.getText(),message.getAuthor().getName(),message.getDate());
     }
 }

@@ -3,7 +3,7 @@ package by.unie.service;
 import by.unie.chat.Chat;
 import by.unie.chat.User;
 import by.unie.dao.ChatDAO;
-import by.unie.dto.MessageDto;
+import by.unie.dto.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class ChatServiceImp implements ChatService {
     }
 
     @Override
-    public List<MessageDto> getMessages(long id) {
+    public List<MessageDTO> getMessages(long id) {
         return chatDAO.getMessages(id);
     }
 
